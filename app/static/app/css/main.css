@@ -1,0 +1,21 @@
+html, body{
+  height: 100%;
+  background-color: #b2b2d8;
+}
+
+#list-cont{
+  margin-top: 30px;
+}
+
+.has-padd{
+  padding: 30px;
+}
+
+.all-way{
+  width: 100%;
+  margin-top: 20px;
+}
+
+#edit-btn{
+  margin-top: 20px;
+}
