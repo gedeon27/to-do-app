@@ -1,0 +1,40 @@
+<nav class="navbar has-background-grey" role="navigation" aria-label="main navigation">
+ <div class="navbar-brand">
+   <img src="https://cdn4.iconfinder.com/data/icons/meeting-conference/64/Meeting-14-512.png">
+
+
+   <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+     <span aria-hidden="true"></span>
+     <span aria-hidden="true"></span>
+     <span aria-hidden="true"></span>
+   </a>
+ </div>
+
+ <div class="navbar-menu">
+   <div class="navbar-start">
+     <a class="navbar-item has-text-warning has-text-weight-bold is-size-3">
+       TO DO LIST
+     </a>
+   </div>
+
+   <div class="navbar-end">
+     <div class="navbar-item">
+       <div class="buttons">
+         {% if user.is_authenticated %}
+         <a class="button is-light">
+           <span class="icon"><i class="fas fa-sign-out-alt"></i></span>
+            <span>Logout</span>
+         </a>
+         {% else %}
+         <a class="button is-primary">
+           <strong>Sign up</strong>
+         </a>
+         <a class="button is-light">
+           Log in
+         </a>
+         {% endif %}
+       </div>
+     </div>
+   </div>
+ </div>
+</nav>
