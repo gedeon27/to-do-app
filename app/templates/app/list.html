@@ -1,0 +1,81 @@
+{% extends 'app/base.html' %}
+{% load app_tags %}
+{% block content %}
+<div class="columns is-centered" id="list-cont" >
+  <div class="column is-5" >
+
+    {% for message in messages %}
+    <article class="message is-{{ message.tags }}">
+      <div class="message-body">
+        {{ message }}
+      </div>
+    </article>
+    {% endfor %}
+
+    <div class="card has-padd">
+      <form method='post' action="{% url 'mainapp:add_task' %}">
+        {% csrf_token %}
+        <input class="input" type="text" placeholder="Add a new task" name="thing">
+        <button type="submit" class="button is-primary all-way">Submit</button>
+      </form>
+      <br>
+      {% for task in tasks %}
+      <div class="box has-background-grey-lighter">
+        <nav class="level">
+          <div class="level-left">
+            <div class="level-item">
+              <a href="{% url 'mainapp:edit_task' task.id %}" class="button is-primary is-small">Edit</a>
+            </div>
+            <div class="level-item">
+              <a href="{% url 'mainapp:task_completed' task.id %}" class="button is-danger is-small">Completed</a>
+            </div>
+            <div class="level-item">
+              {% if task.completed %}
+              <del>{{ task.thing | capitalize_first }}</del>
+              {% else %}
+              {{ task.thing }}
+              {% endif %}
+            </div>
+          </div>
+          <div class="level-right">
+            <div class="level-item">
+              <a href="{% url 'mainapp:delete_task' task.id %}"><span class="icon"><i class="fas fa-trash-alt"></i></span></a>
+            </div>
+
+          </div>
+        </nav>
+      </div>
+      {% endfor %}
+
+    </div>
+
+    {% if is_active %}
+    <div class="modal is-active">
+      <div class="modal-background"></div>
+      <div class="modal-content">
+        <div class="box">
+          <form method='post' action="">
+            {% csrf_token %}
+            <div class="field">
+              <input class="input" type="text" name="thing" value="{{ task.thing }}">
+            </div>
+            <div class="field">
+              <input type="checkbox" name="completed" {% if task.completed %} checked="checked" {% endif %}>
+              <label for="completed">Completed</label>
+            </div>
+            <div class="field">
+              <button type="submit" class="button is-success" id="edit-btn">Save changes</button>
+              <a href="{% url 'mainapp:home' %}"><button class="button" id="edit-btn">Cancel</button></a>
+            </div>
+          </form>
+        </div>
+      </div>
+      <a href="{% url 'mainapp:home' %}"><button class="modal-close is-large" aria-label="close"></button></a>
+    </div>
+    {% endif %}
+
+  </div>
+
+</div>
+</div>
+{% endblock %}

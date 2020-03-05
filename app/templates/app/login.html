@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <title>Login</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css">
+  <!-- FontAwesome -->
+  <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+</head>
+<body>
+
+  <style>
+  body,html{
+    background-color: #eceeef;
+    height: 100%;
+  }
+
+  #login-btn{
+    margin-top: 20px;
+  }
+
+  .box{
+    box-shadow: 0px 0px 20px 0px rgba(142,142,142,1);
+  }
+  </style>
+
+  {% for message in messages %}
+  <article class="message is-success">
+    <div class="message-body has-text-centered	">
+      {{message}}
+    </div>
+  </article>
+  {% endfor %}
+</div>
+<br><br>
+<div class="columns is-centered">
+  <div class="column is-3">
+    <div class="box has-background-dark has-text-light">
+      <h1 class="title has-text-light">Login</h1>
+      <form method="POST">
+        {% csrf_token %}
+
+        <div class="field">
+          <label class="label">Username</label>
+          <div class="control has-icons-left has-icons-right">
+            <input class="input" type="text" placeholder="Username" name="username">
+            <span class="icon is-small is-left">
+              <i class="fas fa-user"></i>
+            </span>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="label">Password
+          </label>
+          <p class="control has-icons-left">
+            <input class="input" type="password" placeholder="Password" name="password">
+            <span class="icon is-small is-left">
+              <i class="fas fa-lock"></i>
+            </span>
+          </p>
+        </div>
+
+        <div class="field">
+          <div class="control">
+            <button class="button is-warning is-outlined" type="submit" id="login-btn">Login</button>
+          </div>
+        </div>
+        <br>
+        <p class="has-text-centered">Don't have an account? <a class="form-link" href="{% url 'mainapp:signup' %}"><strong>Sign up</strong></a></p>
+      </form>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

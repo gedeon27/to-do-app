@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <title>Sign Up</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css">
+  <!-- FontAwesome -->
+  <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+
+  <style >
+    body,html{
+      background-color: #eceeef;
+      height: 100%;
+    }
+
+    #signup-btn{
+      margin-top: 30px;
+    }
+
+    .box{
+      box-shadow: 0px 0px 20px 0px rgba(142,142,142,1);
+    }
+  </style>
+  
+</head>
+<body>
+  <br><br><br><br><br>
+  <div class="columns is-centered">
+    <div class="column is-3">
+      <div class="box has-background-dark has-text-light">
+        <h1 class="title has-text-light">Sign Up</h1>
+        <form method="post">
+          {% csrf_token %}
+          <div class="field">
+            <label class="label has-text-light">Username</label>
+            <div class="control has-icons-left has-icons-right">
+              <input class="input" type="text" placeholder="Username" name="username">
+              <span class="icon is-small is-left">
+                <i class="fas fa-user"></i>
+              </span>
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="label has-text-light">Email</label>
+            <div class="control has-icons-left has-icons-right">
+              <input class="input" type="email" placeholder="Email" name='email'>
+              <span class="icon is-small is-left">
+                <i class="fas fa-envelope"></i>
+              </span>
+
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="label has-text-light">Password
+            </label>
+            <p class="control has-icons-left">
+              <input class="input" type="password" placeholder="Password" name="password1">
+              <span class="icon is-small is-left">
+                <i class="fas fa-lock"></i>
+              </span>
+            </p>
+          </div>
+
+          <div class="field">
+            <label class="label has-text-light">Confirm password
+            </label>
+            <p class="control has-icons-left">
+              <input class="input" type="password" placeholder="Password" name="password2">
+              <span class="icon is-small is-left">
+                <i class="fas fa-lock"></i>
+              </span>
+            </p>
+          </div>
+
+          <div class="field is-grouped" id="signup-btn">
+            <div class="control">
+              <button class="button is-primary is-outlined" type="submit">Register</button>
+            </div>
+            <div class="control">
+              <button class="button has-background-grey-lighter" type="reset">Cancel</button>
+            </div>
+          </div>
+          <br>
+          <p class="has-text-centered has-text-light">Already have an account? <a class="form-link" href="{% url 'mainapp:login' %}"><strong>Login</strong></a></p>
+        </form>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

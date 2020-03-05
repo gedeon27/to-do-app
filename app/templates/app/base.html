@@ -1,0 +1,38 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Luckiest+Guy&display=swap" rel="stylesheet">
+  <script src="https://kit.fontawesome.com/4ff0b81e40.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="{% static 'app/css/main.css' %}">
+  <title>To Do List</title>
+</head>
+
+<body>
+  {% include 'app/navbar.html' %}
+
+  {% if user.is_authenticated %}
+
+  {% block content %}
+  {% endblock %}
+
+  {% else %}
+  <div class="welcome">
+    <article class="message is-warning">
+      <div class="message-header has-text-centered">
+        <p>Welcome to the TO-DO-LIST app</p>
+      </div>
+      <div class="message-body">
+        Hit the <strong>login</strong> button on the top right corner to check your list, or <strong>signup</strong> if you don't have an account yet
+      </div>
+    </article>
+  </div>
+
+
+  {% endif %}
+</body>
+</html>
