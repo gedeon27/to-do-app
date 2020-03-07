@@ -5,9 +5,10 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css">
-  <link href="https://fonts.googleapis.com/css?family=Luckiest+Guy&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+  integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
   <script src="https://kit.fontawesome.com/4ff0b81e40.js" crossorigin="anonymous"></script>
+  <link href="https://fonts.googleapis.com/css?family=Anton&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="{% static 'app/css/main.css' %}">
   <title>To Do List</title>
 </head>
@@ -15,24 +16,41 @@
 <body>
   {% include 'app/navbar.html' %}
 
-  {% if user.is_authenticated %}
+<div class="body-box">
+  <div class="container">
+    <div class="row">
+      {% if user.is_authenticated %}
 
-  {% block content %}
-  {% endblock %}
+      {% block content %}
+      {% endblock %}
 
-  {% else %}
-  <div class="welcome">
-    <article class="message is-warning">
-      <div class="message-header has-text-centered">
-        <p>Welcome to the TO-DO-LIST app</p>
+      {% else %}
+      <div class="col mt-5">
+        <div class="jumbotron m-auto">
+          <h1 class="display-4">Welcome to the TO-DO-LIST app</h1>
+          <p class="lead">Do you always have many things to do and you keep forgettin some? Don't worry, I got you!
+            <br>
+            Use this app every day and you'll miss nothing!
+          </p>
+          <hr class="my-4">
+          <p>Hit the <strong>login</strong> button on the top right corner to check your list, or <strong>signup</strong> if you don't have an account yet</p>
+        </div>
       </div>
-      <div class="message-body">
-        Hit the <strong>login</strong> button on the top right corner to check your list, or <strong>signup</strong> if you don't have an account yet
-      </div>
-    </article>
+      {% endif %}
+    </div>
   </div>
+</div>
+  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+  integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+  integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+  integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 
-
+  {% if is_active %}
+    <script>
+      $('#editModal').modal('show');
+    </script>
   {% endif %}
 </body>
 </html>

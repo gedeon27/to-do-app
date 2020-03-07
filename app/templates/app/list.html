@@ -1,79 +1,69 @@
 {% extends 'app/base.html' %}
 {% load app_tags %}
 {% block content %}
-<div class="columns is-centered" id="list-cont" >
-  <div class="column is-5" >
+<div class="col-md-8 m-auto">
 
-    {% for message in messages %}
-    <article class="message is-{{ message.tags }}">
-      <div class="message-body">
-        {{ message }}
-      </div>
-    </article>
-    {% endfor %}
+  {% for message in messages %}
+  <div class="alert alert-{{ message.tags }} alert-dismissible fade show">
+    {{ message }}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  {% endfor %}
 
-    <div class="card has-padd">
-      <form method='post' action="{% url 'mainapp:add_task' %}">
+  <div class="card border-dark mt-5" id="main-card">
+    <div class="card-body">
+      <form method='post' action="{% url 'mainapp:add_task' %}" class="mb-5">
         {% csrf_token %}
-        <input class="input" type="text" placeholder="Add a new task" name="thing">
-        <button type="submit" class="button is-primary all-way">Submit</button>
+        <input class="form-control mb-3" type="text" placeholder="Add a new task" name="thing">
+        <div class="px-3">
+          <button type="submit" class="btn btn-warning btn-block" id="submit-btn">Submit</button>
+        </div>
       </form>
-      <br>
       {% for task in tasks %}
-      <div class="box has-background-grey-lighter">
-        <nav class="level">
-          <div class="level-left">
-            <div class="level-item">
-              <a href="{% url 'mainapp:edit_task' task.id %}" class="button is-primary is-small">Edit</a>
-            </div>
-            <div class="level-item">
-              <a href="{% url 'mainapp:task_completed' task.id %}" class="button is-danger is-small">Completed</a>
-            </div>
-            <div class="level-item">
-              {% if task.completed %}
-              <del>{{ task.thing | capitalize_first }}</del>
-              {% else %}
-              {{ task.thing }}
-              {% endif %}
-            </div>
-          </div>
-          <div class="level-right">
-            <div class="level-item">
-              <a href="{% url 'mainapp:delete_task' task.id %}"><span class="icon"><i class="fas fa-trash-alt"></i></span></a>
-            </div>
-
-          </div>
-        </nav>
+      <div class="card mt-3" id="task">
+        <div class="card-body">
+          <a href="{% url 'mainapp:edit_task' task.id %}" class="btn btn-sm btn-info">Edit</a>
+          <a href="{% url 'mainapp:task_completed' task.id %}" class="btn btn-sm btn-danger mr-3">Completed</a>
+          {% if task.completed %}
+          <del>{{ task.thing | capitalize_first }}</del>
+          {% else %}
+          {{ task.thing }}
+          {% endif %}
+          <a href="{% url 'mainapp:delete_task' task.id %}" class="float-right text-dark"><i class="fas fa-trash-alt"></i></a>
+        </div>
       </div>
       {% endfor %}
-
     </div>
+  </div>
 
-    {% if is_active %}
-    <div class="modal is-active">
-      <div class="modal-background"></div>
+  <!-- Modal -->
+  <div class="modal fade" id="editModal">
+    <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
-        <div class="box">
+        <div class="modal-header">
+          <h5 class="modal-title">Edit task</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
           <form method='post' action="">
             {% csrf_token %}
-            <div class="field">
-              <input class="input" type="text" name="thing" value="{{ task.thing }}">
+            <div class="form-group">
+              <input class="form-control" type="text" name="thing" value="{{ task.thing }}">
             </div>
-            <div class="field">
+            <div class="form-group">
               <input type="checkbox" name="completed" {% if task.completed %} checked="checked" {% endif %}>
               <label for="completed">Completed</label>
             </div>
-            <div class="field">
-              <button type="submit" class="button is-success" id="edit-btn">Save changes</button>
-              <a href="{% url 'mainapp:home' %}"><button class="button" id="edit-btn">Cancel</button></a>
-            </div>
+            <button type="submit" class="btn btn-success">Save changes</button>
+            <a href="{% url 'mainapp:home' %}"><button class="btn btn-outline-dark">Cancel</button></a>
           </form>
         </div>
       </div>
-      <a href="{% url 'mainapp:home' %}"><button class="modal-close is-large" aria-label="close"></button></a>
     </div>
-    {% endif %}
-
   </div>
 
 </div>

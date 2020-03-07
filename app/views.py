@@ -51,8 +51,10 @@ def edit_task(request, pk):
 
         return redirect('mainapp:home')
 
+    user_list, created = UserList.objects.get_or_create(user=request.user)
+    tasks = user_list.task_set.all()
     is_active = True
-    context = {'task': task, 'is_active': is_active}
+    context = {'tasks': tasks, 'task': task, 'is_active': is_active}
 
     return render(request, 'app/list.html', context)
 
@@ -92,6 +94,12 @@ def loginPage(request):
     if request.method == 'POST':
         username = request.POST['username']
         password = request.POST['password']
+
+        try:
+            keep_logged = request.POST['remember_me']
+        except:
+            request.session.set_expiry(0)
+
         user = authenticate(request, username=username, password=password)
 
         if user is not None:

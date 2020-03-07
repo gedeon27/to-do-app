@@ -21,8 +21,12 @@
     .box{
       box-shadow: 0px 0px 20px 0px rgba(142,142,142,1);
     }
+
+    #loginLink:hover{
+      color: #7fbfff;
+    }
   </style>
-  
+
 </head>
 <body>
   <br><br><br><br><br>
@@ -84,7 +88,7 @@
             </div>
           </div>
           <br>
-          <p class="has-text-centered has-text-light">Already have an account? <a class="form-link" href="{% url 'mainapp:login' %}"><strong>Login</strong></a></p>
+          <p class="has-text-centered has-text-light">Already have an account? <a id="loginLink" class="form-link" href="{% url 'mainapp:login' %}"><strong>Login</strong></a></p>
         </form>
       </div>
     </div>

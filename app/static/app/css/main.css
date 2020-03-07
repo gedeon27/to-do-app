@@ -1,41 +1,41 @@
-html, body{
-  height: 100%;
-  background-color: #EEEEEE;
+body,html {
+	/* background-color: #eceeef !important; */
+	height: 100%;
 }
 
-#list-cont{
-  margin-top: 30px;
+.body-box{
+	background-image: url(https://wallpaperset.com/w/full/4/4/6/517256.jpg);
+	height: 100%;
 }
 
-.has-padd{
-  padding: 30px;
+a:hover {
+	text-decoration: none;
 }
 
-.all-way{
-  width: 100%;
-  margin-top: 20px;
+/* #main-card {
+	box-shadow: 0px 0px 20px 0px rgba(142, 142, 142, 1);
+} */
+
+#task {
+	background-color: #e5e5e5;
 }
 
-#edit-btn{
-  margin-top: 20px;
+#submit-btn:hover{
+	transform: translateY(-5px);
+	transform: scale(1.05);
+	background-color: #ff8c19;
 }
 
-.user{
-  margin-right: 20px;
+.navbar-text{
+	font-family: 'Anton', sans-serif;
+	font-size: 40px;
 }
 
-.card{
-  box-shadow: 0px 0px 20px 0px rgba(142,142,142,1);
+#username{
+	font-size: 25px;
+	color: white;
 }
 
-#name{
-  margin-left: 800px;
-  font-family: 'Luckiest Guy', cursive;
-}
-
-.welcome{
-  width: 30%;
-  margin: auto;
-  margin-top: 50px;
-
+.jumbotron{
+	box-shadow: 0px 0px 20px 0px rgba(142,142,142,1);
 }
