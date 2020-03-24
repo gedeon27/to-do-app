@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.views.generic import ListView
 from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages
+from django.utils import timezone
 from .models import *
 from .forms import *
 from .decorators import unauthenticated_user
@@ -13,8 +14,9 @@ def index(request):
 
 
 def home(request):
-    user_list, created = UserList.objects.get_or_create(user=request.user)
-    tasks = user_list.task_set.all()
+    # user_list, created = UserList.objects.get_or_create(user=request.user)
+    # tasks = user_list.tasks_listed.all()
+    tasks = Task.objects.filter(its_list=request.user)
     context = {'tasks': tasks}
 
     return render(request, 'app/list.html', context)
@@ -24,15 +26,11 @@ def add_task(request):
     user_list, created = UserList.objects.get_or_create(user=request.user)
 
     if request.method == 'POST':
-        form = TaskForm(request.POST)
+        task_added = request.POST['thing']
+        task = Task.objects.create(thing=task_added, its_list=request.user)
+        return redirect('mainapp:home')
 
-        if form.is_valid():
-            task = form.save()
-            user_list.task_set.add(task)
-
-            return redirect('mainapp:home')
-
-    tasks = user_list.task_set.all()
+    tasks = Task.objects.filter(its_list=request.user)
     context = {'tasks': tasks}
 
     return render(request, 'app/list.html', context)
@@ -51,8 +49,13 @@ def edit_task(request, pk):
 
         return redirect('mainapp:home')
 
-    user_list, created = UserList.objects.get_or_create(user=request.user)
-    tasks = user_list.task_set.all()
+    #  LONGER WAY
+    # user_list, created = UserList.objects.get_or_create(user=request.user)
+    # tasks = user_list.list.all()
+    # ------------
+    #  SHORTER WAY
+    tasks = Task.objects.filter(its_list=request.user)
+
     is_active = True
     context = {'tasks': tasks, 'task': task, 'is_active': is_active}
 
@@ -60,6 +63,12 @@ def edit_task(request, pk):
 
 
 def task_completed(request, pk):
+    #  LONGER WAY
+    # task = Task.objects.get(id=pk)
+    # task.completed = True
+    # task.save()
+    # ------------
+    #  SHORTER WAY
     task = Task.objects.get(id=pk)
     task.completed = True
     task.save()
@@ -68,8 +77,12 @@ def task_completed(request, pk):
 
 
 def delete_task(request, pk):
-    task = Task.objects.get(id=pk)
-    task.delete()
+    #  LONGER WAY
+    # task = Task.objects.get(id=pk)
+    # task.delete()
+    # ------------
+    #  SHORTER WAY
+    task = Task.objects.filter(id=pk).delete()
 
     return redirect('mainapp:home')
 

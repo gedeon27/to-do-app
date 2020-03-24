@@ -27,11 +27,14 @@
           <a href="{% url 'mainapp:edit_task' task.id %}" class="btn btn-sm btn-info">Edit</a>
           <a href="{% url 'mainapp:task_completed' task.id %}" class="btn btn-sm btn-danger mr-3">Completed</a>
           {% if task.completed %}
-          <del>{{ task.thing | capitalize_first }}</del>
+          <del>{{ task.thing|capitalize_first }}</del>
           {% else %}
           {{ task.thing }}
           {% endif %}
           <a href="{% url 'mainapp:delete_task' task.id %}" class="float-right text-dark"><i class="fas fa-trash-alt"></i></a>
+          <div class="date mt-3" style="font-size: 15px;">
+          <small><strong>Date modified</strong>: {{ task.creation_date }}</small>
+        </div>
         </div>
       </div>
       {% endfor %}
