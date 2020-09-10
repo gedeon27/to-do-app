@@ -17,7 +17,7 @@ def home(request):
     # user_list, created = UserList.objects.get_or_create(user=request.user)
     # tasks = user_list.tasks_listed.all()
     tasks = Task.objects.filter(its_list=request.user)
-    context = {'tasks': tasks}
+    context = {'tasks': tasks}    
 
     return render(request, 'app/list.html', context)
 
